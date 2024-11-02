@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+int q;
+cin>>q;
+map<int,int>last,fast;///doita map nichi jeno kono value double holee seta amra erase korte pari.
+set<int>left,right;///sobsomoy sorted and unique thakee moto map+set niyechi.
+while(q--)
+{
+  char ch;
+  cin>>ch;
+  int l,r; cin>>l>>r;
+  if(ch=='+')//ch ta + holee question moteee add/insert korechi & map e count++ korechi,r na hole erase korechi & count-- korechi.
+  {
+    left.insert(l);
+    right.insert(r);
+    fast[l]++;
+    last[r]++;
+  }
+  else
+  {
+    fast[l]--;
+    last[r]--;
+    if(fast[l]!=1)left.erase(l);//(Left,Right)theke jodi kono value er count 1 na hoyee 1 er ceye boro hoy,taholee takee erase kora hoyeche.
+    if(last[r]!=1)right.erase(r);
+  }
+  if((left.empty()!=1) && ((*--left.end()) > *right.begin())) //jodi 1st left container ti khali hoye jay && tar last er value ta right container er 1st value thekee boro hoy,tahole intersect korbe aksomoy tai"YES"print korechi,biporitee "NO" print korechi.
+  cout<<"YES"<<endl;
+  else cout<<"NO"<<endl;
+}
+return 0;
+}
